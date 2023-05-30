@@ -1,2 +1,2 @@
 #!/bin/bash
-import os;os.makedirs("welcome/to/school")
+makdirs -p welcome/to/holberton
