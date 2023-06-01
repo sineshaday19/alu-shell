@@ -1,0 +1,2 @@
+#!/bin/bash
+tr "A" "2" | tr "c" "e"
