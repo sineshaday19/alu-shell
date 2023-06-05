@@ -2,11 +2,7 @@
 # This script groups visitors by IP and HTTP status code and displays the data
 
 # Parse the Apache log file and extract IP and HTTP status code
-awk '{count[$1" "$9]++} END {for (key in count) print count[key], key}' access.log |
-  # Sort the data by the number of occurrences in descending order
-  sort -rn |
-  # Display the result
-  awk '{print "    "$1, $2, $3}'
+awk '{ a[$1 " " $9]++ } END { for (i in a) print a[i], i }' apache-access.log | sort -rn
 
 
 
