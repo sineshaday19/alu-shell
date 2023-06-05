@@ -1,39 +1,12 @@
 #!/usr/bin/env bash
 # This script groups visitors by IP and HTTP status code and displays the data
-log_file="access.log"
 
-# Check if the log file exists
-if [ ! -f "$log_file" ]; then
-    echo "Log file not found."
-    exit 1
-fi
+# Parse the Apache log file and extract IP and HTTP status code
+awk '{count[$1" "$9]++} END {for (key in count) print count[key], key}' access.log |
+  # Sort the data by the number of occurrences in descending order
+  sort -rn |
+  # Display the result
+  awk '{print "    "$1, $2, $3}'
 
-# Check if the log file is empty
-if [ ! -s "$log_file" ]; then
-    echo "Log file is empty."
-    exit 1
-fi
-
-# Check if the log file has the correct format
-if ! awk 'NF!=9 { exit 1 }' "$log_file"; then
-    echo "Log file has the wrong format."
-    exit 1
-fi
-
-# Group visitors by IP and HTTP status code and count the occurrences
-grouped_data=$(awk '{ ip[$1][$9]++ } END { for (i in ip) for (j in ip[i]) print ip[i][j], i, j }' "$log_file")
-
-# Check if there is any data to display
-if [ -z "$grouped_data" ]; then
-    echo "No data to display."
-    exit 0
-fi
-
-# Sort the grouped data by the number of occurrences in descending order
-sorted_data=$(echo "$grouped_data" | awk '{ print $1, $2, $3 }' | sort -rn)
-
-# Display the grouped and sorted data
-echo "OCCURENCE_NUMBER IP HTTP_CODE"
-echo "$sorted_data"
 
 
