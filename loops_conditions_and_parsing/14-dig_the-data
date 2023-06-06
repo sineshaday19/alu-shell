@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script groups visitors by IP and HTTP status code and displays the data
-awk '{arr[$1 " " $9]++} END {for (i in arr) print arr[i], i}' $apache-acees.log | sort -rn
+awk '{arr[$1 " " $9]++} END {for (i in arr) print arr[i], i}' $apache-access.log | sort -rn
 
 
 
