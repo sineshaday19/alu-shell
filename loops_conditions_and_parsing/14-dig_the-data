@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
-# This script dynamically handles different scenarios of log file size and format.
-
-log_file="apache-access.log"
-
-if [[ $(wc -l < "$apache-access.log") -lt 1000 ]]; then
-    awk '{print $1, $9}' "$apache-access.log"
-elif [[ $(wc -l < "$log_file") -ge 1000 ]]; then
-    sort -k1,1 -k9,9 "$apache-acess.log" | uniq -c | sort -rn
-else
-    awk '{ip=""; status=""; for (i=1; i<=NF; i++) {if ($i ~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/) ip=$i; if ($i ~ /[0-9]{3}/) status=$i} print ip, status}' "apache-access.log | sort | uniq -c | sort -rn
-fi
+# This script groups visitors by IP and HTTP status code and displays the data
+awk '{ count[$1" "$9]++ } END { for (key in count) print count[key], key }' apache-access.log | sort -nrk1
 
 
 
