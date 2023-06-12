@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 # Bash script that displays a list of currently running processes
-ps aux --forest | awk 
+echo "USER START COMMAND"
+ps -eo user,lstart,command --sort=start_time | awk 'NR>1 {printf "%-10s %s ", $1, $2; for (i=3; i<=NF; i++) printf "%s ", $i; printf "\n"}' | head -50
+
