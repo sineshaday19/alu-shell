@@ -4,9 +4,10 @@
 # Create the PID file
 echo $$ > /var/run/myscript.pid
 
-# Function to handle SIGTERM signal
+# Function to handle SIGTERM and SIGQUIT signals
 function handle_sigterm {
     echo "I hate the kill command"
+    cleanup_and_exit
 }
 
 # Function to handle SIGINT signal
@@ -14,17 +15,15 @@ function handle_sigint {
     echo "Y U no love me?!"
 }
 
-# Function to handle SIGQUIT signal
-function handle_sigquit {
-    # Delete the PID file
+# Function to delete the PID file and exit
+function cleanup_and_exit {
     rm /var/run/myscript.pid
     exit
 }
 
 # Register signal handlers
-trap 'handle_sigterm' SIGTERM
+trap 'handle_sigterm' SIGTERM SIGQUIT
 trap 'handle_sigint' SIGINT
-trap 'handle_sigquit' SIGQUIT
 
 # Display message indefinitely
 while true; do
