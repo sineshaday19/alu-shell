@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# This script stops the '7-highlander' process when receiving a SIGTERM signal.
+
+# Function to handle SIGTERM signal
+terminate_process() {
+  echo "I am invincible!!!"
+  # Kill the '7-highlander' process
+  kill "$pid"
+  exit 0
+}
+
+# Register the terminate_process function as the handler for SIGTERM
+trap terminate_process SIGTERM
+
+# Find the process ID (PID) of '7-highlander'
+pid=$(pgrep -f '7-highlander')
+
+# Check if the process is running
+if [ -n "$pid" ]; then
+  # Continuously display "To infinity and beyond" with a sleep of 2 seconds
+  while true; do
+    echo "To infinity and beyond"
+    sleep 2
+  done
+else
+  echo "Process not found"
+fi
+
