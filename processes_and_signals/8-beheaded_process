@@ -7,9 +7,6 @@ pid=$(pgrep -f '7-highlander')
 # Check if the process is running
 if [ -n "$pid" ]; then
   # Kill the '7-highlander' process
-  kill "$pid"
-  echo "Process killed"
-else
-  echo "Process not found"
+  kill "$pid" &>/dev/null
 fi
 
