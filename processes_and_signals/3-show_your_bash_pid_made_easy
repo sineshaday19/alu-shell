@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script displays the PID and process name of processes containing the word "bash".
+
+# Get the process IDs of all running processes
+pids=$(ls /proc | grep -E "^[0-9]+$")
+
+# Iterate over the process IDs
+for pid in $pids; do
+    # Check if the process command line contains the word "bash"
+    if grep -q "bash" "/proc/$pid/cmdline" 2>/dev/null; then
+        # Extract the process name from the process status file
+        name=$(awk '/Name:/ {print $2}' "/proc/$pid/status")
+        echo "$pid $name"
+    fi
+done
+
