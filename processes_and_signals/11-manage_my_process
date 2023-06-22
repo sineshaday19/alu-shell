@@ -30,6 +30,11 @@ restart_process() {
     echo "manage_my_process restarted."
 }
 
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+fi
+
 case "$1" in
     start)
         start_process
@@ -42,6 +47,7 @@ case "$1" in
         ;;
     *)
         echo "Usage: $0 {start|stop|restart}"
+        exit 1
         ;;
 esac
 
