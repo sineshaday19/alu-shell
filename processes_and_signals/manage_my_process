@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
-# This script indefinitely writes "I am alive!" to the file /tmp/my_process
-# It pauses for 2 seconds between every message
-
+# This script manages the manage_my_process script
 while true; do
-  echo "I am alive!" >> /tmp/my_process
-  sleep 2
+    echo "I am alive!" >> /tmp/my_process
+    sleep 2
 done
