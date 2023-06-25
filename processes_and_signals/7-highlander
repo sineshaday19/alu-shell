@@ -1,17 +1,7 @@
 #!/usr/bin/env bash
 # This script displays "To infinity and beyond" indefinitely with a sleep of 2 seconds in between each iteration.
 # It displays "OK" when receiving a SIGTERM signal.
-
-# Function to handle SIGTERM signal
-terminate_process() {
-  echo "OK"
-  exit 0
-}
-
-# Register the terminate_process function as the handler for SIGTERM
-trap terminate_process SIGTERM
-
-# Continuously display "To infinity and beyond" with a sleep of 2 seconds
+trap "echo  I am invincible!!!" SIGTERM
 while true; do
   echo "To infinity and beyond"
   sleep 2
